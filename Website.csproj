@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Version>7.0.0.4</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../WebFramework/WebFramework.csproj" />
+    <ProjectReference Include="../../UsersPlugin/UsersPlugin.csproj" />
+    <ProjectReference Include="../../RedirectPlugin/RedirectPlugin.csproj" />
+    <ProjectReference Include="../../ServerPlugin/ServerPlugin.csproj" />
+    <ProjectReference Include="../../FilePlugin/FilePlugin.csproj" />
+    <ProjectReference Include="../../MailPlugin/MailPlugin.csproj" />
+    <ProjectReference Include="../../NotesPlugin/NotesPlugin.csproj" />
+  </ItemGroup>
+</Project>

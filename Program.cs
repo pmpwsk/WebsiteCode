@@ -40,6 +40,12 @@ Server.Config.Backup.Enabled = true;
 
 //domains
 Server.Config.Domains.TitleExtensions.Add("uwap.org", "uwap.org");
+Server.Config.Domains.TitleExtensions.Add("account.uwap.org", "uwap.org");
+Server.Config.Domains.TitleExtensions.Add("r.uwap.org", "uwap.org");
+Server.Config.Domains.TitleExtensions.Add("server.uwap.org", "uwap.org");
+Server.Config.Domains.TitleExtensions.Add("files.uwap.org", "uwap.org");
+Server.Config.Domains.TitleExtensions.Add("mail.uwap.org", "uwap.org");
+Server.Config.Domains.TitleExtensions.Add("notes.uwap.org", "uwap.org");
 Server.Config.Domains.TitleExtensions.Add("pmpwsk.com", "pmpwsk.com");
 Server.Config.Domains.CopyrightNames.Add("any", "uwap.org");
 Server.Config.Domains.CopyrightNames.Add("pmpwsk.com", "Florian Pompowski");

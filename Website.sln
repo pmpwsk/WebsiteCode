@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilePlugin", "..\..\FilePlu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailPlugin", "..\..\MailPlugin\MailPlugin.csproj", "{34EDA036-4592-4501-A3C9-89387AFCDD07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotesPlugin", "..\..\NotesPlugin\NotesPlugin.csproj", "{C20ABBF2-BA98-42B6-A0DD-14897A74F994}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,10 +51,6 @@ Global
 		{34EDA036-4592-4501-A3C9-89387AFCDD07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34EDA036-4592-4501-A3C9-89387AFCDD07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34EDA036-4592-4501-A3C9-89387AFCDD07}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C20ABBF2-BA98-42B6-A0DD-14897A74F994}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C20ABBF2-BA98-42B6-A0DD-14897A74F994}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C20ABBF2-BA98-42B6-A0DD-14897A74F994}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C20ABBF2-BA98-42B6-A0DD-14897A74F994}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

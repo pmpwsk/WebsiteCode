@@ -3,7 +3,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Version>7.1.0.3</Version>
+    <Version>7.1.0.8</Version>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../../WebFramework/WebFramework.csproj" />
@@ -12,6 +12,5 @@
     <ProjectReference Include="../../ServerPlugin/ServerPlugin.csproj" />
     <ProjectReference Include="../../FilePlugin/FilePlugin.csproj" />
     <ProjectReference Include="../../MailPlugin/MailPlugin.csproj" />
-    <ProjectReference Include="../../NotesPlugin/NotesPlugin.csproj" />
   </ItemGroup>
 </Project>

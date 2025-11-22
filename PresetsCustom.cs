@@ -1,7 +1,6 @@
 ﻿using MimeKit;
 using uwap.WebFramework;
 using uwap.WebFramework.Accounts;
-using uwap.WebFramework.Elements;
 using uwap.WebFramework.Mail;
 using uwap.WebFramework.Plugins;
 
@@ -32,33 +31,33 @@ public class PresetsCustom : PresetsHandler
     public override string? Favicon(Request req)
         => "/icons/u.ico";
 
-    public override void Navigation(Request request, Page page)
+    public override void Navigation(Request request, WebFramework.Elements.Page page)
     {
         if (request.Domain == "uwap.org" || request.Domains.Contains("uwap.org"))
             if (request.LoggedIn)
                 page.Navigation =
                 [
-                    new Button("uwap.org", "/"),
+                    new WebFramework.Elements.Button("uwap.org", "/"),
                     Presets.AccountButton(request),
-                    new Button("About", "/about", "right"),
-                    new Button("Projects", "/projects"),
-                    new Button("Guides", "/guides"),
-                    new Button("Notes", "https://notes.uwap.org"),
-                    new Button("Files", "https://files.uwap.org"),
-                    new Button("Mail", "https://mail.uwap.org")
+                    new WebFramework.Elements.Button("About", "/about", "right"),
+                    new WebFramework.Elements.Button("Projects", "/projects"),
+                    new WebFramework.Elements.Button("Guides", "/guides"),
+                    new WebFramework.Elements.Button("Notes", "https://notes.uwap.org"),
+                    new WebFramework.Elements.Button("Files", "https://files.uwap.org"),
+                    new WebFramework.Elements.Button("Mail", "https://mail.uwap.org")
                 ];
             else page.Navigation =
                 [
-                    new Button("uwap.org", "/"),
+                    new WebFramework.Elements.Button("uwap.org", "/"),
                     Presets.AccountButton(request),
-                    new Button("About", "/about", "right"),
-                    new Button("Projects", "/projects"),
-                    new Button("Guides", "/guides")
+                    new WebFramework.Elements.Button("About", "/about", "right"),
+                    new WebFramework.Elements.Button("Projects", "/projects"),
+                    new WebFramework.Elements.Button("Guides", "/guides")
                 ];
         else page.Navigation =
             [
-                new Button("uwap.org", "https://uwap.org"),
-                new Button("Menu", "/")
+                new WebFramework.Elements.Button("uwap.org", "https://uwap.org"),
+                new WebFramework.Elements.Button("Menu", "/")
             ];
     }
 

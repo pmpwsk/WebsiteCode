@@ -17,7 +17,7 @@ Console.WriteLine($"Useful Web App Project {Parsers.VersionString(System.Reflect
 if (Server.DebugMode)
 {
     Server.Config.HttpsPort = 4430;
-    Server.LoadCertificate("any", "../Certificates/localhost.pfx");
+    await Server.LoadCertificateAsync("any", "../Certificates/localhost.pfx");
     Server.Config.CacheExtensions = [];
     Server.Config.Domains.CanonicalDomains.Add("localhost", "uwap.org");
 }
@@ -25,7 +25,7 @@ else
 {
     Server.Config.HttpPort = 80;
     Server.Config.HttpsPort = 443;
-    Server.LoadCertificate("any", "../Certificates/uwap.pfx", "#0}G]Wtdt(6*K");
+    await Server.LoadCertificateAsync("any", "../Certificates/uwap.pfx", "#0}G]Wtdt(6*K");
     Server.Config.AutoCertificate.Email = "flo@uwap.org";
 }
 PresetsCustom.UsersPluginPathValue = Server.DebugMode ? "https://localhost:4430/account" : "https://account.uwap.org";
@@ -70,10 +70,10 @@ Server.Config.Accounts.FailedAttempts.LogBans = true;
 //mail
 MailManager.ServerDomain = "uwap.org";
 MailManager.DnsServers = MailManager.DnsServersCloudflare;
-MailManager.In.TryStart();
+await MailManager.In.TryStartAsync();
 
 //presets
 Presets.Handler = new PresetsCustom();
 
 //start server and block the thread
-Server.Start();
+await Server.StartAsync();

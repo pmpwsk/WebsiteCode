@@ -8,7 +8,7 @@ namespace uwap.Website;
 
 public class PresetsCustom : PresetsHandler
 {
-    public readonly static UsersPlugin UsersPlugin = new()
+    public static readonly UsersPlugin UsersPlugin = new()
     {
         DefaultAccent = "violet",
         DefaultBackground = "dark",
@@ -18,14 +18,14 @@ public class PresetsCustom : PresetsHandler
 
     protected override string? SupportEmail => "support@uwap.org";
 
-    public override MailSendResult WarningMail(Request req, User user, string subject, string text, string? useThisAddress = null)
+    public override async Task<MailSendResult> WarningMailAsync(Request req, User user, string subject, string text, string? useThisAddress = null)
     {
-        return MailManager.Out.Send(
+        return (await MailManager.Out.SendAsync(
             new MailboxAddress("uwap.org Support", "support@uwap.org"),
             new MailboxAddress(user.Username, useThisAddress ?? user.MailAddress),
             $"[uwap.org] {subject}",
             $"Hello, {user.Username}!\n{text}\n\nIf this wasn't you, please secure your account. If you can't access your account, reply to this email to reach our support.\n\nRegards,\nuwap.org Support".Replace("\n", "<br />"),
-            true, true);
+            true, true)).Result;
     }
 
     public override string? Favicon(Request req)

@@ -27,6 +27,7 @@ else
     Server.Config.HttpsPort = 443;
     await Server.LoadCertificateAsync("any", "../Certificates/uwap.pfx", "#0}G]Wtdt(6*K");
     Server.Config.AutoCertificate.Email = "flo@uwap.org";
+    Server.Config.Domains.CanonicalDomains.Add("uwap.org", "uwap.org");
 }
 PresetsCustom.UsersPluginPathValue = Server.DebugMode ? "https://localhost:4430/account" : "https://account.uwap.org";
 

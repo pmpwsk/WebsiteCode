@@ -33,7 +33,7 @@ PresetsCustom.UsersPluginPathValue = Server.DebugMode ? "https://localhost:4430/
 
 //general
 Server.Config.WorkerInterval = 60;
-Server.Config.ConfigureServices = s => s.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(o => o.MultipartBodyLengthLimit = 4294967296);
+Server.Config.ConfigureServicesAction = s => s.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(o => o.MultipartBodyLengthLimit = 4294967296);
 
 //backups
 Server.Config.Backup.Enabled = true;

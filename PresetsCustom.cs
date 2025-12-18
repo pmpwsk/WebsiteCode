@@ -85,7 +85,7 @@ public class PresetsCustom : PresetsHandler
                 ..AppButtons(req)
             ]));
             page.NavBar.Islands.Add(new([new LinkButton("uwap.org", "/")]));
-            page.NavBar.Islands.Add(new([new MenuButton("Menu", "wf-menu")]));
+            page.NavBar.Islands.Add(new([new PopupButton("Menu", "wf-menu")]));
         }
         else
         {

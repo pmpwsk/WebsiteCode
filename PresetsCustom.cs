@@ -1,8 +1,10 @@
-﻿using MimeKit;
+﻿using System.Web;
+using MimeKit;
 using uwap.WebFramework;
 using uwap.WebFramework.Accounts;
 using uwap.WebFramework.Mail;
 using uwap.WebFramework.Plugins;
+using uwap.WebFramework.Responses.DefaultUI;
 
 namespace uwap.Website;
 
@@ -68,4 +70,82 @@ public class PresetsCustom : PresetsHandler
         => UsersPluginPathValue;
 
     public static string UsersPluginPathValue = "/account";
+
+    public override void ModifyPage(Request req, Page page)
+    {
+        page.Favicon = new(req, "/icons/u.ico");
+        
+        if (req.Domain == "uwap.org" || req.Domains.Contains("uwap.org"))
+        {
+            page.Menus.Add(new Menu("wf-menu", "Menu", [
+                ..AuthButtons(req),
+                new LinkButton("About", "/about"),
+                new LinkButton("Projects", "/projects"),
+                new LinkButton("Guides", "/guides"),
+                ..AppButtons(req)
+            ]));
+            page.NavBar.Islands.Add(new([new LinkButton("uwap.org", "/")]));
+            page.NavBar.Islands.Add(new([new MenuButton("Menu", "wf-menu")]));
+        }
+        else
+        {
+            page.NavBar.Islands.Add(new([new LinkButton("uwap.org", "https://uwap.org")]));
+            page.NavBar.Islands.Add(new([new LinkButton("Home", "/")]));
+        }
+    }
+    
+    private static AbstractButton[] AppButtons(Request req)
+        => req.LoggedIn ? [
+                new LinkButton("Notes", "https://notes.uwap.org"),
+                new LinkButton("Files", "https://files.uwap.org"),
+                new LinkButton("Mail", "https://mail.uwap.org")
+            ] : [];
+    
+    private AbstractButton[] AuthButtons(Request req)
+    {
+        string usersPluginPath = UsersPluginPath(req);
+        return req.LoginState switch
+        {
+            LoginState.LoggedIn =>
+                [
+                    new LinkButton("Account", $"{usersPluginPath}/"),
+                    new LinkButton("Logout", $"{usersPluginPath}/logout")
+                ],
+            LoginState.Banned =>
+                [
+                ],
+            LoginState.Needs2FA =>
+                [
+                    new LinkButton("Logout", AccountPathMatches("/2fa")
+                        ? $"{usersPluginPath}/logout{req.CurrentRedirectQuery}"
+                        : $"{usersPluginPath}/2fa{req.CurrentRedirectQuery}"
+                    )
+                ],
+            LoginState.NeedsMailVerification =>
+                [
+                    new LinkButton("Logout", AccountPathMatches("/verify")
+                        ? $"{usersPluginPath}/logout{req.CurrentRedirectQuery}"
+                        : $"{usersPluginPath}/verify{req.CurrentRedirectQuery}"
+                    )
+                ],
+            _ =>
+                [
+                    new LinkButton("Login", AccountPathMatches("/login") || AccountPathMatches("/register") || AccountPathMatches("/recovery", true)
+                        ? $"{usersPluginPath}/login{req.CurrentRedirectQuery}"
+                        : $"{usersPluginPath}/login?redirect={HttpUtility.UrlEncode(req.ProtoHostPathQuery)}"
+                    ),
+                    new LinkButton("Register", AccountPathMatches("/login") || AccountPathMatches("/register") || AccountPathMatches("/recovery", true)
+                        ? $"{usersPluginPath}/register{req.CurrentRedirectQuery}"
+                        : $"{usersPluginPath}/register?redirect={HttpUtility.UrlEncode(req.ProtoHostPathQuery)}"
+                    )
+                ]
+        };
+
+        bool AccountPathMatches(string relPath, bool allowPrefix = false)
+        {
+            string wantedPath = usersPluginPath + relPath;
+            string testPath = wantedPath.StartsWith("http") ? req.ProtoHostPath : req.FullPath;
+            return wantedPath == testPath || (allowPrefix && testPath.StartsWith(wantedPath + '/'));
+        }
+    }
 }

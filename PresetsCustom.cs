@@ -79,9 +79,9 @@ public class PresetsCustom : PresetsHandler
         {
             page.Menus.Add(new Menu("wf-menu", "Menu", [
                 ..AuthButtons(req),
-                new LinkButton("About", "/about"),
-                new LinkButton("Projects", "/projects"),
-                new LinkButton("Guides", "/guides"),
+                new LinkButton(new("bi bi-info-circle", "About"), "/about"),
+                new LinkButton(new("bi bi-hdd-rack", "Projects"), "/projects"),
+                new LinkButton(new("bi bi-book", "Guides"), "/guides"),
                 ..AppButtons(req)
             ]));
             page.NavBar.Islands.Add(new([new LinkButton("uwap.org", "/")]));
@@ -96,9 +96,9 @@ public class PresetsCustom : PresetsHandler
     
     private static AbstractButton[] AppButtons(Request req)
         => req.LoggedIn ? [
-                new LinkButton("Notes", "https://notes.uwap.org"),
-                new LinkButton("Files", "https://files.uwap.org"),
-                new LinkButton("Mail", "https://mail.uwap.org")
+                new LinkButton(new("bi bi-card-text", "Notes"), "https://notes.uwap.org"),
+                new LinkButton(new("bi bi-folder", "Files"), "https://files.uwap.org"),
+                new LinkButton(new("bi bi-envelope", "Mail"), "https://mail.uwap.org")
             ] : [];
     
     private AbstractButton[] AuthButtons(Request req)
@@ -108,33 +108,33 @@ public class PresetsCustom : PresetsHandler
         {
             LoginState.LoggedIn =>
                 [
-                    new LinkButton("Account", $"{usersPluginPath}/"),
-                    new LinkButton("Logout", $"{usersPluginPath}/logout")
+                    new LinkButton(new("bi bi-person", "Account"), $"{usersPluginPath}/"),
+                    new LinkButton(new("bi bi-box-arrow-left", "Logout"), $"{usersPluginPath}/logout")
                 ],
             LoginState.Banned =>
                 [
                 ],
             LoginState.Needs2FA =>
                 [
-                    new LinkButton("Logout", AccountPathMatches("/2fa")
+                    new LinkButton(new("bi bi-box-arrow-left", "Logout"), AccountPathMatches("/2fa")
                         ? $"{usersPluginPath}/logout{req.CurrentRedirectQuery}"
                         : $"{usersPluginPath}/2fa{req.CurrentRedirectQuery}"
                     )
                 ],
             LoginState.NeedsMailVerification =>
                 [
-                    new LinkButton("Logout", AccountPathMatches("/verify")
+                    new LinkButton(new("bi bi-box-arrow-left", "Logout"), AccountPathMatches("/verify")
                         ? $"{usersPluginPath}/logout{req.CurrentRedirectQuery}"
                         : $"{usersPluginPath}/verify{req.CurrentRedirectQuery}"
                     )
                 ],
             _ =>
                 [
-                    new LinkButton("Login", AccountPathMatches("/login") || AccountPathMatches("/register") || AccountPathMatches("/recovery", true)
+                    new LinkButton(new("bi bi-key", "Login"), AccountPathMatches("/login") || AccountPathMatches("/register") || AccountPathMatches("/recovery", true)
                         ? $"{usersPluginPath}/login{req.CurrentRedirectQuery}"
                         : $"{usersPluginPath}/login?redirect={HttpUtility.UrlEncode(req.ProtoHostPathQuery)}"
                     ),
-                    new LinkButton("Register", AccountPathMatches("/login") || AccountPathMatches("/register") || AccountPathMatches("/recovery", true)
+                    new LinkButton(new("bi bi-person-vcard", "Register"), AccountPathMatches("/login") || AccountPathMatches("/register") || AccountPathMatches("/recovery", true)
                         ? $"{usersPluginPath}/register{req.CurrentRedirectQuery}"
                         : $"{usersPluginPath}/register?redirect={HttpUtility.UrlEncode(req.ProtoHostPathQuery)}"
                     )

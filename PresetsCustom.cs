@@ -84,6 +84,7 @@ public class PresetsCustom : PresetsHandler
                 new LinkButton(new("bi bi-book", "Guides"), "/guides"),
                 ..AppButtons(req)
             ]));
+            page.NavBar.Islands.Add(new([new LinkButton("uwap.org", "/")]));
         }
         else
         {
@@ -91,9 +92,9 @@ public class PresetsCustom : PresetsHandler
                 ..AuthButtons(req),
                 new LinkButton(new("bi bi-house", "Home"), "/")
             ]));
+            page.NavBar.Islands.Add(new([new LinkButton("uwap.org", "https://uwap.org")]));
         }
         
-        page.NavBar.Islands.Add(new([new LinkButton("uwap.org", "/")]));
         page.NavBar.Islands.Add(new([new PopupButton(new("bi bi-list", "Menu"), "wf-menu")]));
     }
     

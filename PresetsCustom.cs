@@ -84,14 +84,17 @@ public class PresetsCustom : PresetsHandler
                 new LinkButton(new("bi bi-book", "Guides"), "/guides"),
                 ..AppButtons(req)
             ]));
-            page.NavBar.Islands.Add(new([new LinkButton("uwap.org", "/")]));
-            page.NavBar.Islands.Add(new([new PopupButton(new("bi bi-list", "Menu"), "wf-menu")]));
         }
         else
         {
-            page.NavBar.Islands.Add(new([new LinkButton("uwap.org", "https://uwap.org")]));
-            page.NavBar.Islands.Add(new([new LinkButton("Home", "/")]));
+            page.Menus.Add(new Menu("wf-menu", "Menu", [
+                ..AuthButtons(req),
+                new LinkButton(new("bi bi-house", "Home"), "/")
+            ]));
         }
+        
+        page.NavBar.Islands.Add(new([new LinkButton("uwap.org", "/")]));
+        page.NavBar.Islands.Add(new([new PopupButton(new("bi bi-list", "Menu"), "wf-menu")]));
     }
     
     private static AbstractButton[] AppButtons(Request req)

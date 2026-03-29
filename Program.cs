@@ -59,13 +59,13 @@ PluginManager.Map(Server.DebugMode ? "uwap.org/account" : "account.uwap.org", Pr
 PluginManager.Map(Server.DebugMode ? "uwap.org/r" : "r.uwap.org", new RedirectPlugin());
 PluginManager.Map(Server.DebugMode ? "uwap.org/server" : "server.uwap.org", new ServerPlugin());
 PluginManager.Map(Server.DebugMode ? "uwap.org/files" : "files.uwap.org", new FilePlugin() { DefaultProfileSizeLimit = 16777216});
-PluginManager.Map(Server.DebugMode ? "uwap.org/mail" : "mail.uwap.org", new MailPlugin());
+PluginManager.Map(Server.DebugMode ? "uwap.org/mail" : "mail.uwap.org", new MailPlugin([]));
 PluginManager.Map("any", new WrongDomainPlugin());
 
 //accounts
 Server.Config.Accounts.Enabled = true;
 Server.Config.Accounts.WildcardDomains.Add("uwap.org");
-Server.Config.Accounts.UserTables.Add("any", UserTable.Import("Users"));
+Server.Config.Accounts.UserTables.Add("any", UserTable.Import("Users", []));
 Server.Config.Accounts.FailedAttempts.LogBans = true;
 
 //mail

@@ -1,5 +1,4 @@
-﻿using System.Web;
-using MimeKit;
+﻿using MimeKit;
 using uwap.WebFramework;
 using uwap.WebFramework.Accounts;
 using uwap.WebFramework.Mail;

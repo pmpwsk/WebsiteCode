@@ -6,25 +6,14 @@ namespace uwap.Website;
 
 public class uwapOrgPlugin : Plugin
 {
-    public override Task<IResponse> HandleAsync(Request req)
-        => Task.FromResult(Handle(req));
-        
-    public static IResponse Handle(Request req)
+    protected static IResponse HandleRoot(Request req)
+        => req.Method == "HEAD" ? new DummyResponse() : StatusResponse.NotFound;
+    
+    [Endpoint("/kill")]
+    protected static StatusResponse HandleKill(Request req)
     {
-        Presets.CreatePage(req, "Useful Web App Project");
-        switch (req.Path)
-        {
-            case "/":
-                if (req.Method == "HEAD")
-                    return new DummyResponse();
-                else
-                    return StatusResponse.NotFound; //HEAD just returns 200, GET is handled by the .wfpg parser
-            case "/kill":
-                if (Server.DebugMode && req.IsAdmin)
-                    Environment.Exit(0);
-                return StatusResponse.NotFound;
-            default:
-                return StatusResponse.NotFound;
-        }
+        if (Server.DebugMode && req.IsAdmin)
+            Environment.Exit(0);
+        return StatusResponse.NotFound;
     }
 }

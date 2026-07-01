@@ -60,6 +60,7 @@ PluginManager.Map(Server.DebugMode ? "uwap.org/r" : "r.uwap.org", new RedirectPl
 PluginManager.Map(Server.DebugMode ? "uwap.org/server" : "server.uwap.org", new ServerPlugin());
 PluginManager.Map(Server.DebugMode ? "uwap.org/files" : "files.uwap.org", new FilePlugin() { DefaultProfileSizeLimit = 16777216});
 PluginManager.Map(Server.DebugMode ? "uwap.org/mail" : "mail.uwap.org", new MailPlugin([]));
+PluginManager.Map(Server.DebugMode ? "uwap.org/office" : "office.uwap.org", new OfficePlugin([]));
 PluginManager.Map("any", new WrongDomainPlugin());
 
 //accounts

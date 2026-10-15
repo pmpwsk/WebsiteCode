@@ -49,6 +49,7 @@ Server.Config.Domains.TitleExtensions.Add("r.uwap.org", "uwap.org");
 Server.Config.Domains.TitleExtensions.Add("server.uwap.org", "uwap.org");
 Server.Config.Domains.TitleExtensions.Add("files.uwap.org", "uwap.org");
 Server.Config.Domains.TitleExtensions.Add("mail.uwap.org", "uwap.org");
+Server.Config.Domains.TitleExtensions.Add("badminton.uwap.org", "uwap.org");
 Server.Config.Domains.TitleExtensions.Add("pmpwsk.com", "pmpwsk.com");
 Server.Config.Domains.CopyrightNames.Add("any", "uwap.org");
 Server.Config.Domains.CopyrightNames.Add("pmpwsk.com", "Florian Pompowski");
@@ -65,6 +66,7 @@ PluginManager.Map(Server.DebugMode ? "uwap.org/server" : "server.uwap.org", new 
 PluginManager.Map(Server.DebugMode ? "uwap.org/files" : "files.uwap.org", new FilePlugin() { DefaultProfileSizeLimit = 16777216});
 PluginManager.Map(Server.DebugMode ? "uwap.org/mail" : "mail.uwap.org", new MailPlugin([]));
 PluginManager.Map(Server.DebugMode ? "uwap.org/office" : "office.uwap.org", new OfficePlugin([]));
+PluginManager.Map(Server.DebugMode ? "uwap.org/badminton" : "badminton.uwap.org", new BadmintonPlugin([]));
 PluginManager.Map("any", new WrongDomainPlugin());
 
 //accounts

@@ -17,14 +17,19 @@ Console.WriteLine($"Useful Web App Project {Parsers.VersionString(System.Reflect
 if (Server.DebugMode)
 {
     Server.Config.HttpsPort = 4430;
+    Server.Config.WorkerInterval = 1;
     await Server.LoadCertificateAsync("any", "../Certificates/localhost.pfx");
     Server.Config.CacheExtensions = [];
     Server.Config.Domains.CanonicalDomains.Add("localhost", "uwap.org");
+    Server.Config.Domains.CanonicalDomains.Add("192.168.2.5", "uwap.org");
+    Server.Config.Domains.CanonicalDomains.Add("[::1]", "uwap.org");
+    Server.Config.Accounts.FailedAttempts.Limit = 3;
 }
 else
 {
     Server.Config.HttpPort = 80;
     Server.Config.HttpsPort = 443;
+    Server.Config.WorkerInterval = 60;
     await Server.LoadCertificateAsync("any", "../Certificates/uwap.pfx", "#0}G]Wtdt(6*K");
     Server.Config.AutoCertificate.Email = "flo@uwap.org";
     Server.Config.Domains.CanonicalDomains.Add("uwap.org", "uwap.org");
@@ -32,7 +37,6 @@ else
 PresetsCustom.UsersPluginPathValue = Server.DebugMode ? "https://localhost:4430/account" : "https://account.uwap.org";
 
 //general
-Server.Config.WorkerInterval = 60;
 Server.Config.ConfigureServicesAction = s => s.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(o => o.MultipartBodyLengthLimit = 4294967296);
 
 //backups

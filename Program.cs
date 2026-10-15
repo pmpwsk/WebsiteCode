@@ -68,6 +68,7 @@ PluginManager.Map(Server.DebugMode ? "uwap.org/mail" : "mail.uwap.org", new Mail
 PluginManager.Map(Server.DebugMode ? "uwap.org/office" : "office.uwap.org", new OfficePlugin([]));
 PluginManager.Map(Server.DebugMode ? "uwap.org/badminton" : "badminton.uwap.org", new BadmintonPlugin([]));
 PluginManager.Map("any", new WrongDomainPlugin());
+PluginManager.Map("uwap.net", new WrongDomainPlugin());
 
 //accounts
 Server.Config.Accounts.Enabled = true;

@@ -12,6 +12,7 @@ if (Server.DebugMode = Environment.UserName != "root")
 }
 
 Console.WriteLine($"Useful Web App Project {Parsers.VersionString(System.Reflection.Assembly.GetExecutingAssembly())}");
+Server.Config.AllowedLanguages = [ "en", "de" ];
 
 //prod+debug settings
 if (Server.DebugMode)

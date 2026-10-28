@@ -35,7 +35,7 @@ else
     Server.Config.AutoCertificate.Email = "flo@uwap.org";
     Server.Config.Domains.CanonicalDomains.Add("uwap.org", "uwap.org");
 }
-PresetsCustom.UsersPluginPathValue = Server.DebugMode ? "https://localhost:4430/account" : "https://account.uwap.org";
+PresetsCustom.UsersPluginPathValue = Server.DebugMode ? "/account" : "https://account.uwap.org";
 
 //general
 Server.Config.ConfigureServicesAction = s => s.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(o => o.MultipartBodyLengthLimit = 4294967296);

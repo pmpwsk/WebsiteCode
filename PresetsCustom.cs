@@ -1,6 +1,7 @@
 ﻿using MimeKit;
 using uwap.WebFramework;
 using uwap.WebFramework.Accounts;
+using uwap.WebFramework.Localization;
 using uwap.WebFramework.Mail;
 using uwap.WebFramework.Plugins;
 using uwap.WebFramework.Responses.DefaultUI;
@@ -17,7 +18,7 @@ public class PresetsCustom : PresetsHandler
         DefaultFont = "ubuntu"
     };
 
-    protected override string? SupportEmail => "support@uwap.org";
+    protected override string SupportEmail => "support@uwap.org";
 
     public override async Task<MailSendResult> WarningMailAsync(Request req, User user, string subject, string text, string? useThisAddress = null)
     {
@@ -25,11 +26,11 @@ public class PresetsCustom : PresetsHandler
             new MailboxAddress("uwap.org Support", "support@uwap.org"),
             new MailboxAddress(user.Username, useThisAddress ?? user.MailAddress),
             $"[uwap.org] {subject}",
-            $"Hello, {user.Username}!\n{text}\n\nIf this wasn't you, please secure your account. If you can't access your account, reply to this email to reach our support.\n\nRegards,\nuwap.org Support".Replace("\n", "<br />"),
-            true, true)).Result;
+            $"{WebsiteTexts.Hello}, {user.Username}!\n{text}\n\n{WebsiteTexts.WarningFooter}".Replace("\n", "<br />"),
+            true)).Result;
     }
 
-    public override string? Favicon(Request req)
+    public override string Favicon(Request req)
         => "/icons/u.ico";
 
     public override void Navigation(Request request, WebFramework.Elements.Page page)
@@ -38,27 +39,27 @@ public class PresetsCustom : PresetsHandler
             if (request.LoggedIn)
                 page.Navigation =
                 [
-                    new WebFramework.Elements.Button("uwap.org", "/"),
+                    new WebFramework.Elements.Button(WebsiteTexts.UwapDotOrg, "/"),
                     Presets.AccountButton(request),
-                    new WebFramework.Elements.Button("About", "/about", "right"),
-                    new WebFramework.Elements.Button("Projects", "/projects"),
-                    new WebFramework.Elements.Button("Guides", "/guides"),
-                    new WebFramework.Elements.Button("Notes", "https://notes.uwap.org"),
-                    new WebFramework.Elements.Button("Files", "https://files.uwap.org"),
-                    new WebFramework.Elements.Button("Mail", "https://mail.uwap.org")
+                    new WebFramework.Elements.Button(WebsiteTexts.About, "/about", "right"),
+                    new WebFramework.Elements.Button(WebsiteTexts.Projects, "/projects"),
+                    new WebFramework.Elements.Button(WebsiteTexts.Guides, "/guides"),
+                    new WebFramework.Elements.Button(WebsiteTexts.Notes, "https://notes.uwap.org"),
+                    new WebFramework.Elements.Button(WebsiteTexts.Files, "https://files.uwap.org"),
+                    new WebFramework.Elements.Button(WebsiteTexts.Mail, "https://mail.uwap.org")
                 ];
             else page.Navigation =
                 [
-                    new WebFramework.Elements.Button("uwap.org", "/"),
+                    new WebFramework.Elements.Button(WebsiteTexts.UwapDotOrg, "/"),
                     Presets.AccountButton(request),
-                    new WebFramework.Elements.Button("About", "/about", "right"),
-                    new WebFramework.Elements.Button("Projects", "/projects"),
-                    new WebFramework.Elements.Button("Guides", "/guides")
+                    new WebFramework.Elements.Button(WebsiteTexts.About, "/about", "right"),
+                    new WebFramework.Elements.Button(WebsiteTexts.Projects, "/projects"),
+                    new WebFramework.Elements.Button(WebsiteTexts.Guides, "/guides")
                 ];
         else page.Navigation =
             [
-                new WebFramework.Elements.Button("uwap.org", "https://uwap.org"),
-                new WebFramework.Elements.Button("Menu", "/")
+                new WebFramework.Elements.Button(WebsiteTexts.UwapDotOrg, "https://uwap.org"),
+                new WebFramework.Elements.Button(CommonTexts.Menu, "/")
             ];
     }
 
@@ -68,7 +69,7 @@ public class PresetsCustom : PresetsHandler
     public override string UsersPluginPath(Request req)
         => UsersPluginPathValue;
 
-    public static string UsersPluginPathValue = "/account";
+    public static string UsersPluginPathValue { get; set; } = "/account";
 
     public override void ModifyPage(Request req, Page page)
     {
@@ -76,31 +77,31 @@ public class PresetsCustom : PresetsHandler
         
         if (req.Domain == "uwap.org" || req.Domains.Contains("uwap.org"))
         {
-            page.Menus.Add(new Menu("wf-menu", "Menu", [
+            page.Menus.Add(new Menu("wf-menu", CommonTexts.Menu, [
                 ..AuthButtons(req),
-                new LinkButton(new("bi bi-info-circle", "About"), "/about"),
-                new LinkButton(new("bi bi-hdd-rack", "Projects"), "/projects"),
-                new LinkButton(new("bi bi-book", "Guides"), "/guides"),
+                new LinkButton(WebsiteTexts.About, "/about"),
+                new LinkButton(WebsiteTexts.Projects, "/projects"),
+                new LinkButton(WebsiteTexts.Guides, "/guides"),
                 ..AppButtons(req)
             ]));
-            page.NavBar.Islands.Add(new([new LinkButton("uwap.org", "/")]));
+            page.NavBar.Islands.Add(new([new LinkButton(WebsiteTexts.UwapDotOrg, "/")]));
         }
         else
         {
-            page.Menus.Add(new Menu("wf-menu", "Menu", [
+            page.Menus.Add(new Menu("wf-menu", CommonTexts.Menu, [
                 ..AuthButtons(req),
-                new LinkButton(new("bi bi-house", "Home"), "/")
+                new LinkButton(CommonTexts.Home, "/")
             ]));
-            page.NavBar.Islands.Add(new([new LinkButton("uwap.org", "https://uwap.org")]));
+            page.NavBar.Islands.Add(new([new LinkButton(WebsiteTexts.UwapDotOrg, "https://uwap.org")]));
         }
         
-        page.NavBar.Islands.Add(new([new PopupButton(new("bi bi-list", "Menu"), "wf-menu")]));
+        page.NavBar.Islands.Add(new([new PopupButton(CommonTexts.Menu, "wf-menu")]));
     }
     
     private static AbstractButton[] AppButtons(Request req)
         => req.LoggedIn ? [
-                new LinkButton(new("bi bi-card-text", "Notes"), "https://notes.uwap.org"),
-                new LinkButton(new("bi bi-folder", "Files"), "https://files.uwap.org"),
-                new LinkButton(new("bi bi-envelope", "Mail"), "https://mail.uwap.org")
-            ] : [];
+                new LinkButton(WebsiteTexts.Notes, "https://notes.uwap.org"),
+                new LinkButton(WebsiteTexts.Files, "https://files.uwap.org"),
+                new LinkButton(new("bi bi-envelope", WebsiteTexts.Mail), "https://mail.uwap.org")
+        ] : [];
 }

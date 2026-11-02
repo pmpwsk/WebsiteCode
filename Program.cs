@@ -75,7 +75,7 @@ PluginManager.Map("uwap.net", new WrongDomainPlugin());
 //accounts
 Server.Config.Accounts.Enabled = true;
 Server.Config.Accounts.WildcardDomains.Add("uwap.org");
-Server.Config.Accounts.UserTables.Add("any", UserTable.Import("Users", []));
+Server.Config.Accounts.UserTables.Add("any", new("Users", []));
 Server.Config.Accounts.FailedAttempts.LogBans = true;
 
 //mail
